@@ -2,15 +2,15 @@ namespace Sharpy.Core.Regex;
 
 public class Result
 {
-    public Result(IReadOnlyList<Chars.Char> chars) => Chars = chars;
+    public Result(IReadOnlyCollection<Chars.Char> chars) => Chars = chars;
 
     public override bool Equals(object? obj) => obj is Result rhs && Chars.SequenceEqual(rhs.Chars);
 
     public override int GetHashCode() => Chars.GetHashCode();
 
-    public IReadOnlyList<Chars.Char> Chars { get; init; } = new List<Chars.Char>();
+    public IReadOnlyCollection<Chars.Char> Chars { get; init; } = new List<Chars.Char>();
 
-    public Chars.Position Position() => Chars.Any() ? Chars[0].Position : new();
+    public Chars.Position Position() => Chars.Any() ? Chars.First().Position : new();
 
     public Tokens.Token Token(string ruleName) => Tokens.Token.Load(ruleName, Chars);
 
