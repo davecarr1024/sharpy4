@@ -12,7 +12,7 @@ public record Any : Regex
         }
         catch (Errors.Error error)
         {
-            throw new Error(this, "", new List<Errors.Error> { error }.ToImmutableList());
+            throw new Error(this, error);
         }
     }
 }

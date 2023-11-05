@@ -13,8 +13,8 @@ public record Literal(char Value) : Regex
         }
         catch (Errors.Error error)
         {
-            throw new Error(this, "", ImmutableList.Create(error));
+            throw new Error(this, error);
         }
-        throw new Error(this, $"expected char {Value} but got {state}", ImmutableList.Create<Errors.Error>());
+        throw new Error(this, $"expected char {Value} but got {state}");
     }
 }

@@ -6,5 +6,11 @@ public class Error : Errors.NaryError
         : base(message, children)
         => Regex = regex;
 
+    public Error(Regex regex, string message) : this(regex, message, ImmutableList.Create<Errors.Error>()) { }
+
+    public Error(Regex regex, Errors.Error child) : this(regex, "", ImmutableList.Create(child)) { }
+
+    public Error(Regex regex, IImmutableList<Errors.Error> children) : this(regex, "", children) { }
+
     public Regex Regex { get; init; }
 }

@@ -10,6 +10,8 @@ namespace Sharpy.Core.Streams
         {
         }
 
+        public Stream(params T[] items) : this(items.ToImmutableList()) { }
+
         public T Head()
         {
             if (!Items.Any())

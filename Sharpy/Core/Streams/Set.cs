@@ -6,6 +6,8 @@ public class Set<T>
 
     public Set(IImmutableList<T> items) => Items = items;
 
+    public Set(params T[] items) : this(items.ToImmutableList()) { }
+
     public IImmutableList<T> Items { get; init; } = ImmutableList.Create<T>();
 
     public override bool Equals(object? obj) => obj is Set<T> rhs && Items.SequenceEqual(rhs.Items);
