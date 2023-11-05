@@ -1,9 +1,7 @@
-using System.Collections.Immutable;
-
 namespace Sharpy.Core.Regex;
 
 [TestClass]
-public class RegexTest
+public class ResultTest
 {
     [TestMethod]
     public void TestLoad()
