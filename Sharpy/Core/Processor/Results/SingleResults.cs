@@ -21,4 +21,6 @@ public record SingleResults<Result>(Result Value) : Results<Result> where Result
     public static MultipleResults<Result> operator |(SingleResults<Result> lhs, MultipleResults<Result> rhs) => lhs.Multiple() | rhs;
 
     public static NamedResults<Result> operator |(SingleResults<Result> lhs, NamedResults<Result> rhs) => lhs.Named() | rhs;
+
+    public SingleResults<Result> Convert(Func<Result, Result> func) => new(func(Value));
 }

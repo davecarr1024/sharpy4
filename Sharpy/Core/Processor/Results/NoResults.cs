@@ -21,4 +21,6 @@ public record NoResults<Result> : Results<Result> where Result : notnull
     public static MultipleResults<Result> operator |(NoResults<Result> _, MultipleResults<Result> rhs) => rhs;
 
     public static NamedResults<Result> operator |(NoResults<Result> _, NamedResults<Result> rhs) => rhs;
+
+    public SingleResults<Result> Convert(Func<Result> func) => new(func());
 }

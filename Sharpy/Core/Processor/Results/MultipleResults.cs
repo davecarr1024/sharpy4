@@ -41,4 +41,6 @@ public record MultipleResults<Result>(Containers.List<Result> Values) : Results<
         => new(new Containers.List<Result>(lhs.Values.Concat(rhs.Values).ToArray()));
 
     public static NamedResults<Result> operator |(MultipleResults<Result> lhs, NamedResults<Result> rhs) => lhs.Named() | rhs;
+
+    public SingleResults<Result> Convert(Func<Containers.List<Result>, Result> func) => new(func(Values));
 }

@@ -35,4 +35,6 @@ public record NamedResults<Result>(Containers.Dictionary<string, Result> Values)
     public static NamedResults<Result> operator |(NamedResults<Result> lhs, MultipleResults<Result> rhs) => lhs | rhs.Named();
 
     public static NamedResults<Result> operator |(NamedResults<Result> lhs, NamedResults<Result> rhs) => new(lhs.Values | rhs.Values);
+
+    public SingleResults<Result> Convert(Func<Containers.Dictionary<string, Result>, Result> func) => new(func(Values));
 }

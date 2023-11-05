@@ -33,4 +33,6 @@ public record OptionalResults<Result>(Result? Value) : Results<Result> where Res
     public static MultipleResults<Result> operator |(OptionalResults<Result> lhs, MultipleResults<Result> rhs) => lhs.Multiple() | rhs;
 
     public static NamedResults<Result> operator |(OptionalResults<Result> lhs, NamedResults<Result> rhs) => lhs.Named() | rhs;
+
+    public SingleResults<Result> Convert(Func<Result?, Result> func) => new(func(Value));
 }
