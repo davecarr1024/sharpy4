@@ -2,13 +2,9 @@ namespace Sharpy.Core.Chars;
 
 public class Stream : Containers.Stream<Stream, Char>
 {
-    public Stream()
-    {
-    }
+    public Stream() : base() { }
 
-    public Stream(IImmutableList<Char> items) : base(items)
-    {
-    }
+    public Stream(params Char[] items) : base(items) { }
 
     public Stream(string value, Position? starting_position = null)
     {

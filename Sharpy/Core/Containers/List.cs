@@ -4,15 +4,13 @@ namespace Sharpy.Core.Containers;
 
 public class List<T> : IImmutableList<T>
 {
-    public List() { }
-
-    public List(IImmutableList<T> items) => Items = items;
+    private List(IImmutableList<T> items) => Items = items;
 
     public List(params T[] items) : this(items.ToImmutableList()) { }
 
     public T this[int index] => ((IReadOnlyList<T>)Items)[index];
 
-    public IImmutableList<T> Items { get; init; } = ImmutableList.Create<T>();
+    public IImmutableList<T> Items { get; init; }
 
     public int Count => Items.Count;
 

@@ -1,10 +1,12 @@
+using Sharpy.Core.Containers;
+
 namespace Sharpy.Core.Errors;
 
 public class NaryError : Error
 {
-    public NaryError(string message, IImmutableList<Error> children)
+    public NaryError(string message = "", params Error[] children)
         : base(message)
-        => Children = children;
+        => Children = new(children);
 
-    public IImmutableList<Error> Children { get; init; }
+    public Set<Error> Children { get; init; }
 }

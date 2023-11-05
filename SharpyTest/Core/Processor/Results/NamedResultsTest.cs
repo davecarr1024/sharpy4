@@ -3,62 +3,64 @@ namespace Sharpy.Core.Processor.Results;
 [TestClass]
 public class NamedResultsTest
 {
+    private record Result(int Value);
+
     [TestMethod]
     public void TestNo()
     {
         Assert.AreEqual(
-            new NamedResults<int?>().No(),
-            new NoResults<int?>()
+            new NamedResults<Result>().No(),
+            new NoResults<Result>()
         );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1)).No(),
-            new NoResults<int?>()
+            new NamedResults<Result>(("a", new Result(1))).No(),
+            new NoResults<Result>()
         );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1), ("b", 2)).No(),
-            new NoResults<int?>()
+            new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2))).No(),
+            new NoResults<Result>()
         );
     }
 
     [TestMethod]
     public void TestSingle()
     {
-        Assert.ThrowsException<Error<int?>>(() => new NamedResults<int?>().Single());
+        Assert.ThrowsException<Error<Result>>(() => new NamedResults<Result>().Single());
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1)).Single(),
-            new SingleResults<int?>(1)
+            new NamedResults<Result>(("a", new Result(1))).Single(),
+            new SingleResults<Result>(new Result(1))
         );
-        Assert.ThrowsException<Error<int?>>(() => new NamedResults<int?>(("a", 1), ("b", 2)).Single());
+        Assert.ThrowsException<Error<Result>>(() => new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2))).Single());
     }
 
     [TestMethod]
     public void TestOptional()
     {
         Assert.AreEqual(
-            new NamedResults<int?>().Optional(),
-            new OptionalResults<int?>()
+            new NamedResults<Result>().Optional(),
+            new OptionalResults<Result>()
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1)).Optional(),
-            new OptionalResults<int?>(1)
+            new NamedResults<Result>(("a", new Result(1))).Optional(),
+            new OptionalResults<Result>(new Result(1))
             );
-        Assert.ThrowsException<Error<int?>>(() => new NamedResults<int?>(("a", 1), ("b", 2)).Optional());
+        Assert.ThrowsException<Error<Result>>(() => new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2))).Optional());
     }
 
     [TestMethod]
     public void TestMultiple()
     {
         Assert.AreEqual(
-            new NamedResults<int?>().Multiple(),
-            new MultipleResults<int?>()
+            new NamedResults<Result>().Multiple(),
+            new MultipleResults<Result>()
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1)).Multiple(),
-            new MultipleResults<int?>(1)
+            new NamedResults<Result>(("a", new Result(1))).Multiple(),
+            new MultipleResults<Result>(new Result(1))
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1), ("b", 2)).Multiple(),
-            new MultipleResults<int?>(1, 2)
+            new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2))).Multiple(),
+            new MultipleResults<Result>(new Result(1), new Result(2))
             );
     }
 
@@ -66,28 +68,28 @@ public class NamedResultsTest
     public void TestNamed()
     {
         Assert.AreEqual(
-            new NamedResults<int?>().Named(),
-            new NamedResults<int?>()
+            new NamedResults<Result>().Named(),
+            new NamedResults<Result>()
             );
         Assert.AreEqual(
-            new NamedResults<int?>().Named("a"),
-            new NamedResults<int?>()
+            new NamedResults<Result>().Named("a"),
+            new NamedResults<Result>()
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1)).Named(),
-            new NamedResults<int?>(("a", 1))
+            new NamedResults<Result>(("a", new Result(1))).Named(),
+            new NamedResults<Result>(("a", new Result(1)))
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1)).Named("a"),
-            new NamedResults<int?>(("a", 1))
+            new NamedResults<Result>(("a", new Result(1))).Named("a"),
+            new NamedResults<Result>(("a", new Result(1)))
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1), ("b", 2)).Named(),
-            new NamedResults<int?>(("a", 1), ("b", 2))
+            new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2))).Named(),
+            new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2)))
             );
         Assert.AreEqual(
-            new NamedResults<int?>(("a", 1), ("b", 2)).Named("a"),
-            new NamedResults<int?>(("a", 1), ("b", 2))
+            new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2))).Named("a"),
+            new NamedResults<Result>(("a", new Result(1)), ("b", new Result(2)))
             );
     }
 }

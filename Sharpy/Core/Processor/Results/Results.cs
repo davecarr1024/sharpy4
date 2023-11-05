@@ -1,6 +1,6 @@
 namespace Sharpy.Core.Processor.Results;
 
-public abstract record Results<Result>
+public abstract record Results<Result> where Result : notnull
 {
     public abstract NoResults<Result> No();
 

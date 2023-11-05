@@ -7,13 +7,9 @@ namespace Sharpy.Core.Containers
     {
         private class TestStream : Stream<TestStream, int>
         {
-            public TestStream()
-            {
-            }
+            public TestStream() : base() { }
 
-            public TestStream(IImmutableList<int> items) : base(items)
-            {
-            }
+            public TestStream(params int[] values) : base(values) { }
         }
 
         [TestMethod]
@@ -21,11 +17,11 @@ namespace Sharpy.Core.Containers
         {
             Assert.ThrowsException<Errors.Error>(() => new TestStream().Head());
             Assert.AreEqual(
-                new TestStream(ImmutableList.Create(1)).Head(),
+                new TestStream(1).Head(),
                 1
             );
             Assert.AreEqual(
-                new TestStream(ImmutableList.Create(1, 2)).Head(),
+                new TestStream(1, 2).Head(),
                 1
             );
         }
@@ -35,12 +31,12 @@ namespace Sharpy.Core.Containers
         {
             Assert.ThrowsException<Errors.Error>(() => new TestStream().Tail());
             Assert.AreEqual(
-                new TestStream(ImmutableList.Create(1)).Tail(),
+                new TestStream(1).Tail(),
                 new TestStream()
             );
             Assert.AreEqual(
-                new TestStream(ImmutableList.Create(1, 2)).Tail(),
-                new TestStream(ImmutableList.Create(2))
+                new TestStream(1, 2).Tail(),
+                new TestStream(2)
             );
         }
     }

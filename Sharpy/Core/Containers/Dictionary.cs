@@ -7,11 +7,20 @@ public class Dictionary<K, V> : IImmutableDictionary<K, V>
     where K : notnull
     where V : notnull
 {
-    public Dictionary(IImmutableDictionary<K, V> items) => Items = items;
+    private Dictionary(IImmutableDictionary<K, V> items) => Items = items;
 
-    public Dictionary() : this(ImmutableDictionary.Create<K, V>()) { }
+    public Dictionary(params (K Key, V Value)[] items)
+        : this(
+            ImmutableDictionary.CreateRange(
+                items.Select(item => new KeyValuePair<K, V>(item.Key, item.Value))
+            )
+        )
+    { }
 
     public IImmutableDictionary<K, V> Items { get; init; }
+
+    public static Dictionary<K, V> operator |(Dictionary<K, V> lhs, Dictionary<K, V> rhs)
+        => new(lhs.Items.Concat(rhs.Items).ToImmutableDictionary());
 
     public IEnumerable<K> Keys => Items.Keys;
 

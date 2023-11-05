@@ -1,15 +1,7 @@
 namespace Sharpy.Core.Containers;
 public abstract class Stream<S, T> : List<T> where S : Stream<S, T>, new()
 {
-    public Stream()
-    {
-    }
-
-    public Stream(IImmutableList<T> items) : base(items)
-    {
-    }
-
-    public Stream(params T[] items) : this(items.ToImmutableList()) { }
+    public Stream(params T[] items) : base(items) { }
 
     public T Head()
     {

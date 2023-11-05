@@ -1,6 +1,6 @@
 namespace Sharpy.Core.Processor.Results;
 
-public record OptionalResults<Result>(Result? Value) : Results<Result>
+public record OptionalResults<Result>(Result? Value) : Results<Result> where Result : notnull
 {
     public OptionalResults() : this(default(Result)) { }
 

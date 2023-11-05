@@ -1,22 +1,11 @@
 namespace Sharpy.Core.Processor.Results;
 
-public record NamedResults<Result>(Containers.Dictionary<string, Result> Values) : Results<Result>
+public record NamedResults<Result>(Containers.Dictionary<string, Result> Values) : Results<Result> where Result : notnull
 {
-    public NamedResults() : this(new Containers.Dictionary<string, Result>()) { }
-
-    public NamedResults(IImmutableDictionary<string, Result> values) : this(new Containers.Dictionary<string, Result>(values)) { }
-
     public NamedResults(params (string name, Result value)[] values)
-    : this(
-        new Containers.Dictionary<string, Result>(
-            ImmutableDictionary.CreateRange(
-                values.Select(item => new KeyValuePair<string, Result>(item.name, item.value))
-            )
-        )
-    )
-    { }
+        : this(new Containers.Dictionary<string, Result>(values)) { }
 
-    public override MultipleResults<Result> Multiple() => new(Values.Values.ToImmutableHashSet());
+    public override MultipleResults<Result> Multiple() => new(Values.Values.ToArray());
 
     public override NamedResults<Result> Named(string name = "") => this;
 
@@ -36,4 +25,7 @@ public record NamedResults<Result>(Containers.Dictionary<string, Result> Values)
             1 => new(Values.Values.First()),
             _ => throw new Error<Result>(this, "unable to convert NamedResults to SingleResults"),
         };
+
+    public static NamedResults<Result> operator |(NamedResults<Result> lhs, NamedResults<Result> rhs)
+        => new(lhs.Values | rhs.Values);
 }

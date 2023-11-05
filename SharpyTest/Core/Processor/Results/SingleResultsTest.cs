@@ -3,12 +3,14 @@ namespace Sharpy.Core.Processor.Results;
 [TestClass]
 public class SingleResultsTest
 {
+    private record Result(int Value);
+
     [TestMethod]
     public void TestNo()
     {
         Assert.AreEqual(
-            new SingleResults<int>(1).No(),
-            new NoResults<int>()
+            new SingleResults<Result>(new Result(1)).No(),
+            new NoResults<Result>()
         );
     }
 
@@ -16,8 +18,8 @@ public class SingleResultsTest
     public void TestSingle()
     {
         Assert.AreEqual(
-            new SingleResults<int>(1).Single(),
-            new SingleResults<int>(1)
+            new SingleResults<Result>(new Result(1)).Single(),
+            new SingleResults<Result>(new Result(1))
         );
     }
 
@@ -25,8 +27,8 @@ public class SingleResultsTest
     public void TestOptional()
     {
         Assert.AreEqual(
-            new SingleResults<int>(1).Optional(),
-            new OptionalResults<int>(1)
+            new SingleResults<Result>(new Result(1)).Optional(),
+            new OptionalResults<Result>(new Result(1))
             );
     }
 
@@ -34,8 +36,8 @@ public class SingleResultsTest
     public void TestMultiple()
     {
         Assert.AreEqual(
-            new SingleResults<int>(1).Multiple(),
-            new MultipleResults<int>(1)
+            new SingleResults<Result>(new Result(1)).Multiple(),
+            new MultipleResults<Result>(new Result(1))
             );
     }
 
@@ -43,12 +45,12 @@ public class SingleResultsTest
     public void TestNamed()
     {
         Assert.AreEqual(
-            new SingleResults<int>(1).Named(),
-            new NamedResults<int>(("", 1))
+            new SingleResults<Result>(new Result(1)).Named(),
+            new NamedResults<Result>(("", new Result(1)))
             );
         Assert.AreEqual(
-            new SingleResults<int>(1).Named("a"),
-            new NamedResults<int>(("a", 1))
+            new SingleResults<Result>(new Result(1)).Named("a"),
+            new NamedResults<Result>(("a", new Result(1)))
             );
     }
 }

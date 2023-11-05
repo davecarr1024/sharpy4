@@ -14,11 +14,11 @@ public class RegexTest
         );
         Assert.AreEqual(
             new Result("a"),
-            new Result(ImmutableList.Create(new Chars.Char('a')))
+            new Result(new Chars.Char('a'))
         );
         Assert.AreEqual(
             new Result("a", new(1, 0)),
-            new Result(ImmutableList.Create(new Chars.Char('a', new(1, 0))))
+            new Result(new Chars.Char('a', new(1, 0)))
         );
     }
 
@@ -69,7 +69,7 @@ public class RegexTest
         );
         Assert.AreEqual(
             new Result("a") + new Result("b"),
-            new Result(ImmutableList.Create(new Chars.Char('a'), new Chars.Char('b')))
+            new Result(new Chars.Char('a'), new Chars.Char('b'))
         );
     }
 }

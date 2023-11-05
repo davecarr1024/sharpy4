@@ -18,6 +18,6 @@ public record Or : NaryRegex
                 errors.Add(error);
             }
         }
-        throw new Error(this, errors.ToImmutableList());
+        throw new Error(this, errors.ToArray());
     }
 }

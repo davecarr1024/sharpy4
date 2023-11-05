@@ -3,62 +3,64 @@ namespace Sharpy.Core.Processor.Results;
 [TestClass]
 public class NoResultsTest
 {
+    private record Result(int Value);
+
     [TestMethod]
     public void TestNo()
     {
         Assert.AreEqual(
-            new NoResults<int>().No(),
-            new NoResults<int>()
+            new NoResults<Result>().No(),
+            new NoResults<Result>()
         );
     }
 
     [TestMethod]
     public void TestSingle()
     {
-        Assert.ThrowsException<Error<int>>(() => new NoResults<int>().Single());
+        Assert.ThrowsException<Error<Result>>(() => new NoResults<Result>().Single());
     }
 
     [TestMethod]
     public void TestOptional()
     {
-        Assert.AreEqual(new NoResults<int>().Optional(), new OptionalResults<int>());
+        Assert.AreEqual(new NoResults<Result>().Optional(), new OptionalResults<Result>());
     }
 
     [TestMethod]
     public void TestMultiple()
     {
-        Assert.AreEqual(new NoResults<int>().Multiple(), new MultipleResults<int>());
+        Assert.AreEqual(new NoResults<Result>().Multiple(), new MultipleResults<Result>());
     }
 
     [TestMethod]
     public void TestNamed()
     {
-        Assert.AreEqual(new NoResults<int>().Named(), new NamedResults<int>());
-        Assert.AreEqual(new NoResults<int>().Named("a"), new NamedResults<int>());
+        Assert.AreEqual(new NoResults<Result>().Named(), new NamedResults<Result>());
+        Assert.AreEqual(new NoResults<Result>().Named("a"), new NamedResults<Result>());
     }
 
     [TestMethod]
     public void TestOr()
     {
         Assert.AreEqual(
-            new NoResults<int>() | new NoResults<int>(),
-            new NoResults<int>()
+            new NoResults<Result>() | new NoResults<Result>(),
+            new NoResults<Result>()
         );
         Assert.AreEqual(
-            new NoResults<int>() | new SingleResults<int>(1),
-            new SingleResults<int>(1)
+            new NoResults<Result>() | new SingleResults<Result>(new Result(1)),
+            new SingleResults<Result>(new Result(1))
         );
         Assert.AreEqual(
-            new NoResults<int>() | new OptionalResults<int>(1),
-            new OptionalResults<int>(1)
+            new NoResults<Result>() | new OptionalResults<Result>(new Result(1)),
+            new OptionalResults<Result>(new Result(1))
         );
         Assert.AreEqual(
-            new NoResults<int>() | new MultipleResults<int>(1),
-            new MultipleResults<int>(1)
+            new NoResults<Result>() | new MultipleResults<Result>(new Result(1)),
+            new MultipleResults<Result>(new Result(1))
         );
         Assert.AreEqual(
-            new NoResults<int>() | new NamedResults<int>(),
-            new NamedResults<int>()
+            new NoResults<Result>() | new NamedResults<Result>(),
+            new NamedResults<Result>()
         );
     }
 }

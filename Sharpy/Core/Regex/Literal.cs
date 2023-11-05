@@ -8,7 +8,7 @@ public record Literal(char Value) : Regex
         {
             if (state.Head().Value == Value)
             {
-                return new(state.Tail(), new Result(ImmutableList.Create(state.Head())));
+                return new(state.Tail(), new Result(state.Head()));
             }
         }
         catch (Errors.Error error)

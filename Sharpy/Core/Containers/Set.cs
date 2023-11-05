@@ -4,9 +4,7 @@ namespace Sharpy.Core.Containers;
 
 public class Set<T> : IImmutableSet<T>
 {
-    public Set(IImmutableSet<T> items) => Items = items;
-
-    public Set() : this(ImmutableHashSet.Create<T>()) { }
+    private Set(IImmutableSet<T> items) => Items = items;
 
     public Set(params T[] items) : this(items.ToImmutableHashSet()) { }
 
@@ -19,7 +17,7 @@ public class Set<T> : IImmutableSet<T>
     public override int GetHashCode() => Items.GetHashCode();
 
     public override string ToString()
-        => $"{{{string.Join(", ", Items.Select(item => item.ToString()))}}}";
+        => $"{{{string.Join(", ", Items.Select(item => item != null ? item.ToString() : "null"))}}}";
 
     public IImmutableSet<T> Add(T value)
     {

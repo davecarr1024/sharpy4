@@ -1,6 +1,6 @@
 namespace Sharpy.Core.Processor.Results;
 
-public record NoResults<Result> : Results<Result>
+public record NoResults<Result> : Results<Result> where Result : notnull
 {
     public override NoResults<Result> No() => this;
 

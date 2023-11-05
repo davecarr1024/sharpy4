@@ -3,26 +3,28 @@ namespace Sharpy.Core.Processor.Results;
 [TestClass]
 public class OptionalResultsTest
 {
+    private record Result(int Value);
+
     [TestMethod]
     public void TestNo()
     {
         Assert.AreEqual(
-            new OptionalResults<int?>().No(),
-            new NoResults<int?>()
+            new OptionalResults<Result>().No(),
+            new NoResults<Result>()
         );
         Assert.AreEqual(
-            new OptionalResults<int?>(1).No(),
-            new NoResults<int?>()
+            new OptionalResults<Result>(new Result(1)).No(),
+            new NoResults<Result>()
         );
     }
 
     [TestMethod]
     public void TestSingle()
     {
-        Assert.ThrowsException<Error<int?>>(() => new OptionalResults<int?>().Single());
+        Assert.ThrowsException<Error<Result>>(() => new OptionalResults<Result>().Single());
         Assert.AreEqual(
-            new OptionalResults<int?>(1).Single(),
-            new SingleResults<int?>(1)
+            new OptionalResults<Result>(new Result(1)).Single(),
+            new SingleResults<Result>(new Result(1))
         );
     }
 
@@ -30,12 +32,12 @@ public class OptionalResultsTest
     public void TestOptional()
     {
         Assert.AreEqual(
-            new OptionalResults<int?>().Optional(),
-            new OptionalResults<int?>()
+            new OptionalResults<Result>().Optional(),
+            new OptionalResults<Result>()
             );
         Assert.AreEqual(
-            new OptionalResults<int?>(1).Optional(),
-            new OptionalResults<int?>(1)
+            new OptionalResults<Result>(new Result(1)).Optional(),
+            new OptionalResults<Result>(new Result(1))
             );
     }
 
@@ -43,12 +45,12 @@ public class OptionalResultsTest
     public void TestMultiple()
     {
         Assert.AreEqual(
-            new OptionalResults<int?>().Multiple(),
-            new MultipleResults<int?>()
+            new OptionalResults<Result>().Multiple(),
+            new MultipleResults<Result>()
             );
         Assert.AreEqual(
-            new OptionalResults<int?>(1).Multiple(),
-            new MultipleResults<int?>(1)
+            new OptionalResults<Result>(new Result(1)).Multiple(),
+            new MultipleResults<Result>(new Result(1))
             );
     }
 
@@ -56,20 +58,20 @@ public class OptionalResultsTest
     public void TestNamed()
     {
         Assert.AreEqual(
-            new OptionalResults<int?>().Named(),
-            new NamedResults<int?>()
+            new OptionalResults<Result>().Named(),
+            new NamedResults<Result>()
             );
         Assert.AreEqual(
-            new OptionalResults<int?>().Named("a"),
-            new NamedResults<int?>()
+            new OptionalResults<Result>().Named("a"),
+            new NamedResults<Result>()
             );
         Assert.AreEqual(
-            new OptionalResults<int?>(1).Named(),
-            new NamedResults<int?>(("", 1))
+            new OptionalResults<Result>(new Result(1)).Named(),
+            new NamedResults<Result>(("", new Result(1)))
             );
         Assert.AreEqual(
-            new OptionalResults<int?>(1).Named("a"),
-            new NamedResults<int?>(("a", 1))
+            new OptionalResults<Result>(new Result(1)).Named("a"),
+            new NamedResults<Result>(("a", new Result(1)))
             );
     }
 }
