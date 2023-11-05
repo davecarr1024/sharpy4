@@ -7,7 +7,7 @@ public record Or : NaryRegex
     public override StateAndResult Call(State state)
     {
         System.Collections.Generic.List<Errors.Error> errors = new();
-        foreach (Regex child in Children.Items)
+        foreach (Regex child in Children)
         {
             try
             {

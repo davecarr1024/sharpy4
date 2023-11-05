@@ -16,24 +16,24 @@ public record NamedResults<Result>(Containers.Dictionary<string, Result> Values)
     )
     { }
 
-    public override MultipleResults<Result> Multiple() => new(Values.Items.Values.ToImmutableHashSet());
+    public override MultipleResults<Result> Multiple() => new(Values.Values.ToImmutableHashSet());
 
     public override NamedResults<Result> Named(string name = "") => this;
 
     public override NoResults<Result> No() => new();
 
     public override OptionalResults<Result> Optional()
-        => Values.Items.Count switch
+        => Values.Count switch
         {
             0 => new(),
-            1 => new(Values.Items.Values.First()),
+            1 => new(Values.Values.First()),
             _ => throw new Error<Result>(this, "unable to convert NamedResults to OptionalResults"),
         };
 
     public override SingleResults<Result> Single()
-        => Values.Items.Count switch
+        => Values.Count switch
         {
-            1 => new(Values.Items.Values.First()),
+            1 => new(Values.Values.First()),
             _ => throw new Error<Result>(this, "unable to convert NamedResults to SingleResults"),
         };
 }

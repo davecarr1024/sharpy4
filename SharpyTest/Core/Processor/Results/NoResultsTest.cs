@@ -36,4 +36,29 @@ public class NoResultsTest
         Assert.AreEqual(new NoResults<int>().Named(), new NamedResults<int>());
         Assert.AreEqual(new NoResults<int>().Named("a"), new NamedResults<int>());
     }
+
+    [TestMethod]
+    public void TestOr()
+    {
+        Assert.AreEqual(
+            new NoResults<int>() | new NoResults<int>(),
+            new NoResults<int>()
+        );
+        Assert.AreEqual(
+            new NoResults<int>() | new SingleResults<int>(1),
+            new SingleResults<int>(1)
+        );
+        Assert.AreEqual(
+            new NoResults<int>() | new OptionalResults<int>(1),
+            new OptionalResults<int>(1)
+        );
+        Assert.AreEqual(
+            new NoResults<int>() | new MultipleResults<int>(1),
+            new MultipleResults<int>(1)
+        );
+        Assert.AreEqual(
+            new NoResults<int>() | new NamedResults<int>(),
+            new NamedResults<int>()
+        );
+    }
 }

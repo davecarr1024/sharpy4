@@ -11,25 +11,25 @@ public record MultipleResults<Result>(Containers.Set<Result> Value) : Results<Re
     public override NoResults<Result> No() => new();
 
     public override OptionalResults<Result> Optional()
-    => Value.Items.Count switch
+    => Value.Count switch
     {
         0 => new(),
-        1 => new(Value.Items.First()),
+        1 => new(Value.First()),
         _ => throw new Error<Result>(this, "unable to convert MultipleResults to OptionalResults"),
     };
 
     public override SingleResults<Result> Single()
-    => Value.Items.Count switch
+    => Value.Count switch
     {
-        1 => new(Value.Items.First()),
+        1 => new(Value.First()),
         _ => throw new Error<Result>(this, "unable to convert MultipleResults to OptionalResults"),
     };
 
     public override NamedResults<Result> Named(string name = "")
-    => Value.Items.Count switch
+    => Value.Count switch
     {
         0 => new(),
-        1 => new((name, Value.Items.First())),
+        1 => new((name, Value.First())),
         _ => throw new Error<Result>(this, "unable to convert MultipleResults to NamedResults"),
     };
 }

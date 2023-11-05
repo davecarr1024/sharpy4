@@ -9,7 +9,7 @@ public record And : NaryRegex
     public override StateAndResult Call(State state)
     {
         Result result = new();
-        foreach (Regex child in Children.Items)
+        foreach (Regex child in Children)
         {
             try
             {
