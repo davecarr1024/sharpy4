@@ -8,7 +8,7 @@ public class Error : Errors.NaryError
 
     public Error(Regex regex, string message) : this(regex, message, ImmutableList.Create<Errors.Error>()) { }
 
-    public Error(Regex regex, Errors.Error child) : this(regex, "", ImmutableList.Create(child)) { }
+    public Error(Regex regex, params Errors.Error[] children) : this(regex, "", children.ToImmutableList()) { }
 
     public Error(Regex regex, IImmutableList<Errors.Error> children) : this(regex, "", children) { }
 
