@@ -1,21 +1,16 @@
 namespace Sharpy.Core.Regex;
 
-public class Result
+public class Result : Streams.Set<Chars.Char>
 {
     public Result() { }
 
-    public Result(IImmutableList<Chars.Char> chars) => Chars = chars;
+    public Result(IImmutableList<Chars.Char> chars) : base(chars) { }
 
-    public override bool Equals(object? obj) => obj is Result rhs && Chars.SequenceEqual(rhs.Chars);
+    public Result(string value, Chars.Position? position = null) : this(new Chars.Stream(value, position).Items) { }
 
-    public override int GetHashCode() => Chars.GetHashCode();
+    public static Result operator +(Result lhs, Result rhs) => new(lhs.Items.Concat(rhs.Items).ToImmutableList());
 
-    public IImmutableList<Chars.Char> Chars { get; init; } = ImmutableList.Create<Chars.Char>();
+    public Chars.Position Position() => Items.Any() ? Items[0].Position : new();
 
-    public Chars.Position Position() => Chars.Any() ? Chars[0].Position : new();
-
-    public Tokens.Token Token(string ruleName) => Tokens.Token.Load(ruleName, Chars);
-
-    public static Result Load(string value, Chars.Position? position = null)
-        => new(Core.Chars.Stream.Load(value, position).Items);
+    public Tokens.Token Token(string ruleName) => new(ruleName, Items);
 }

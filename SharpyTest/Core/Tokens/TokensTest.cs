@@ -7,15 +7,15 @@ public class TokenTest
     public void TestLoad()
     {
         Assert.AreEqual(
-            Token.Load("r", Chars.Stream.Load("")),
-            new Token("r", "", new())
+            new Token("r", new Chars.Stream()),
+            new Token("r", "")
         );
         Assert.AreEqual(
-            Token.Load("r", Chars.Stream.Load("abc")),
-            new Token("r", "abc", new())
+            new Token("r", new Chars.Stream("abc")),
+            new Token("r", "abc")
         );
         Assert.AreEqual(
-            Token.Load("r", Chars.Stream.Load("abc", new(1, 0))),
+            new Token("r", new Chars.Stream("abc", new(1, 0))),
             new Token("r", "abc", new(1, 0))
         );
     }

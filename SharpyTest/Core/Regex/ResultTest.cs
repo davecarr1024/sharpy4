@@ -9,15 +9,15 @@ public class RegexTest
     public void TestLoad()
     {
         Assert.AreEqual(
-            Result.Load(""),
+            new Result(),
             new Result()
         );
         Assert.AreEqual(
-            Result.Load("a"),
-            new Result(ImmutableList.Create(new Chars.Char('a', new())))
+            new Result("a"),
+            new Result(ImmutableList.Create(new Chars.Char('a')))
         );
         Assert.AreEqual(
-            Result.Load("a", new(1, 0)),
+            new Result("a", new(1, 0)),
             new Result(ImmutableList.Create(new Chars.Char('a', new(1, 0))))
         );
     }
@@ -26,15 +26,15 @@ public class RegexTest
     public void TestPosition()
     {
         Assert.AreEqual(
-            Result.Load("").Position(),
+            new Result().Position(),
             new Chars.Position()
         );
         Assert.AreEqual(
-            Result.Load("a").Position(),
+            new Result("a").Position(),
             new Chars.Position()
         );
         Assert.AreEqual(
-            Result.Load("a", new(1, 0)).Position(),
+            new Result("a", new(1, 0)).Position(),
             new Chars.Position(1, 0)
         );
     }
@@ -43,12 +43,33 @@ public class RegexTest
     public void TestToken()
     {
         Assert.AreEqual(
-            Result.Load("a").Token("r"),
-            new Tokens.Token("r", "a", new())
+            new Result("a").Token("r"),
+            new Tokens.Token("r", "a")
         );
         Assert.AreEqual(
-            Result.Load("a", new(1, 0)).Token("r"),
+            new Result("a", new(1, 0)).Token("r"),
             new Tokens.Token("r", "a", new(1, 0))
+        );
+    }
+
+    [TestMethod]
+    public void TestAdd()
+    {
+        Assert.AreEqual(
+            new Result() + new Result(),
+            new Result()
+        );
+        Assert.AreEqual(
+            new Result("a") + new Result(),
+            new Result("a")
+        );
+        Assert.AreEqual(
+            new Result() + new Result("b"),
+            new Result("b")
+        );
+        Assert.AreEqual(
+            new Result("a") + new Result("b"),
+            new Result(ImmutableList.Create(new Chars.Char('a'), new Chars.Char('b')))
         );
     }
 }

@@ -9,25 +9,25 @@ public class StreamTest
     public void TestLoad()
     {
         Assert.AreEqual(
-            Stream.Load(""),
+            new Stream(),
             new Stream()
         );
         Assert.AreEqual(
-            Stream.Load("a"),
-            new Stream(ImmutableList.Create(new Char('a', new())))
+            new Stream("a"),
+            new Stream(ImmutableList.Create(new Char('a')))
         );
         Assert.AreEqual(
-            Stream.Load("abc"),
+            new Stream("abc"),
             new Stream(ImmutableList.Create(
-                new Char('a', new()),
+                new Char('a'),
                 new Char('b', new(0, 1)),
                 new Char('c', new(0, 2))
             ))
         );
         Assert.AreEqual(
-            Stream.Load("a\nb"),
+            new Stream("a\nb"),
             new Stream(ImmutableList.Create(
-                new Char('a', new()),
+                new Char('a'),
                 new Char('\n', new(0, 1)),
                 new Char('b', new(1, 0))
             ))
