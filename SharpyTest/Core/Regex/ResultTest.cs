@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+
 namespace Sharpy.Core.Regex;
 
 [TestClass]
@@ -8,15 +10,15 @@ public class RegexTest
     {
         Assert.AreEqual(
             Result.Load(""),
-            new Result(new List<Chars.Char> { })
+            new Result()
         );
         Assert.AreEqual(
             Result.Load("a"),
-            new Result(new List<Chars.Char> { new('a', new()) })
+            new Result(ImmutableList.Create(new Chars.Char('a', new())))
         );
         Assert.AreEqual(
             Result.Load("a", new(1, 0)),
-            new Result(new List<Chars.Char> { new('a', new(1, 0)) })
+            new Result(ImmutableList.Create(new Chars.Char('a', new(1, 0))))
         );
     }
 

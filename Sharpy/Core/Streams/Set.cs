@@ -2,7 +2,11 @@ namespace Sharpy.Core.Streams;
 
 public class Set<T>
 {
-    public IReadOnlyCollection<T> Items { get; init; } = new List<T>();
+    public Set() { }
+
+    public Set(IImmutableList<T> items) => Items = items;
+
+    public IImmutableList<T> Items { get; init; } = ImmutableList.Create<T>();
 
     public override bool Equals(object? obj) => obj is Set<T> rhs && Items.SequenceEqual(rhs.Items);
 

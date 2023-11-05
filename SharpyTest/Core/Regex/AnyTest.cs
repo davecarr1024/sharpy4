@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+
 namespace Sharpy.Core.Regex;
 
 [TestClass]
@@ -11,7 +13,7 @@ public class AnyTest
             new Any().Call("a"),
             new StateAndResult(
                 new State(new Chars.Stream()),
-                new Result(new List<Chars.Char> { new('a', new()) })
+                new Result(ImmutableList.Create(new Chars.Char('a', new())))
             )
         );
     }

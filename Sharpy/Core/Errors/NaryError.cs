@@ -2,9 +2,9 @@ namespace Sharpy.Core.Errors;
 
 public class NaryError : Error
 {
-    public NaryError(string message, IReadOnlyCollection<Error> children)
+    public NaryError(string message, IImmutableList<Error> children)
         : base(message)
         => Children = children.ToImmutableList();
 
-    public IReadOnlyCollection<Error> Children { get; init; }
+    public IImmutableList<Error> Children { get; init; }
 }

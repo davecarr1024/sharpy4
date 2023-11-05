@@ -8,7 +8,7 @@ public record Any : Regex
     {
         try
         {
-            return new(state.Tail(), new Result(new List<Chars.Char> { state.Head() }));
+            return new(state.Tail(), new Result(ImmutableList.Create(state.Head())));
         }
         catch (Errors.Error error)
         {

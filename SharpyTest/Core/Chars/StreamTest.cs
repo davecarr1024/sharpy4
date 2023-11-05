@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+
 namespace Sharpy.Core.Chars;
 
 [TestClass]
@@ -8,33 +10,27 @@ public class StreamTest
     {
         Assert.AreEqual(
             Stream.Load(""),
-            new Stream { Items = new List<Char> { } }
+            new Stream()
         );
         Assert.AreEqual(
             Stream.Load("a"),
-            new Stream { Items = new List<Char> { new('a', new()) } }
+            new Stream(ImmutableList.Create(new Char('a', new())))
         );
         Assert.AreEqual(
             Stream.Load("abc"),
-            new Stream
-            {
-                Items = new List<Char> {
-                new('a',new()),
-                new('b',new(0,1)),
-                new('c',new(0,2)),
-                }
-            }
+            new Stream(ImmutableList.Create(
+                new Char('a', new()),
+                new Char('b', new(0, 1)),
+                new Char('c', new(0, 2))
+            ))
         );
         Assert.AreEqual(
             Stream.Load("a\nb"),
-            new Stream
-            {
-                Items = new List<Char> {
-                new('a',new()),
-                new('\n',new(0,1)),
-                new('b',new(1,0)),
-                }
-            }
+            new Stream(ImmutableList.Create(
+                new Char('a', new()),
+                new Char('\n', new(0, 1)),
+                new Char('b', new(1, 0))
+            ))
         );
     }
 }
