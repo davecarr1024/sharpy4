@@ -19,6 +19,8 @@ public class Set<T> : IImmutableSet<T>
     public override string ToString()
         => $"{{{string.Join(", ", Items.Select(item => item != null ? item.ToString() : "null"))}}}";
 
+    public static Set<T> operator |(Set<T> lhs, Set<T> rhs) => new(lhs.Items.Union(rhs.Items).ToImmutableHashSet());
+
     public IImmutableSet<T> Add(T value)
     {
         return Items.Add(value);

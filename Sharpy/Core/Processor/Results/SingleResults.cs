@@ -16,12 +16,9 @@ public record SingleResults<Result>(Result Value) : Results<Result> where Result
 
     public static MultipleResults<Result> operator |(SingleResults<Result> lhs, SingleResults<Result> rhs) => new(lhs.Value, rhs.Value);
 
-    public static MultipleResults<Result> operator |(SingleResults<Result> lhs, OptionalResults<Result> rhs)
-        => new(lhs.Multiple().Values.Concat(rhs.Multiple().Values).ToArray());
+    public static MultipleResults<Result> operator |(SingleResults<Result> lhs, OptionalResults<Result> rhs) => lhs.Multiple() | rhs.Multiple();
 
-    public static MultipleResults<Result> operator |(SingleResults<Result> lhs, MultipleResults<Result> rhs)
-        => new(lhs.Multiple().Values.Concat(rhs.Values).ToArray());
+    public static MultipleResults<Result> operator |(SingleResults<Result> lhs, MultipleResults<Result> rhs) => lhs.Multiple() | rhs;
 
-    public static NamedResults<Result> operator |(SingleResults<Result> lhs, NamedResults<Result> rhs)
-        => new(lhs.Named().Values | rhs.Named().Values);
+    public static NamedResults<Result> operator |(SingleResults<Result> lhs, NamedResults<Result> rhs) => lhs.Named() | rhs;
 }

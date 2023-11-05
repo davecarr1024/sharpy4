@@ -5,7 +5,7 @@ public record NamedResults<Result>(Containers.Dictionary<string, Result> Values)
     public NamedResults(params (string name, Result value)[] values)
         : this(new Containers.Dictionary<string, Result>(values)) { }
 
-    public override MultipleResults<Result> Multiple() => new(Values.Values.ToArray());
+    public override MultipleResults<Result> Multiple() => new(Values.OrderBy(kv => kv.Key).Select(kv => kv.Value).ToArray());
 
     public override NamedResults<Result> Named(string name = "") => this;
 
@@ -26,6 +26,13 @@ public record NamedResults<Result>(Containers.Dictionary<string, Result> Values)
             _ => throw new Error<Result>(this, "unable to convert NamedResults to SingleResults"),
         };
 
-    public static NamedResults<Result> operator |(NamedResults<Result> lhs, NamedResults<Result> rhs)
-        => new(lhs.Values | rhs.Values);
+    public static NamedResults<Result> operator |(NamedResults<Result> lhs, NoResults<Result> _) => lhs;
+
+    public static NamedResults<Result> operator |(NamedResults<Result> lhs, SingleResults<Result> rhs) => lhs | rhs.Named();
+
+    public static NamedResults<Result> operator |(NamedResults<Result> lhs, OptionalResults<Result> rhs) => lhs | rhs.Named();
+
+    public static NamedResults<Result> operator |(NamedResults<Result> lhs, MultipleResults<Result> rhs) => lhs | rhs.Named();
+
+    public static NamedResults<Result> operator |(NamedResults<Result> lhs, NamedResults<Result> rhs) => new(lhs.Values | rhs.Values);
 }

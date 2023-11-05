@@ -23,4 +23,14 @@ public record OptionalResults<Result>(Result? Value) : Results<Result> where Res
             null => new(),
             _ => new((name, Value)),
         };
+
+    public static OptionalResults<Result> operator |(OptionalResults<Result> lhs, NoResults<Result> _) => lhs;
+
+    public static MultipleResults<Result> operator |(OptionalResults<Result> lhs, SingleResults<Result> rhs) => lhs.Multiple() | rhs.Multiple();
+
+    public static MultipleResults<Result> operator |(OptionalResults<Result> lhs, OptionalResults<Result> rhs) => lhs.Multiple() | rhs.Multiple();
+
+    public static MultipleResults<Result> operator |(OptionalResults<Result> lhs, MultipleResults<Result> rhs) => lhs.Multiple() | rhs;
+
+    public static NamedResults<Result> operator |(OptionalResults<Result> lhs, NamedResults<Result> rhs) => lhs.Named() | rhs;
 }

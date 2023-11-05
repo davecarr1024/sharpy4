@@ -86,4 +86,97 @@ public class MultipleResultsTest
         Assert.ThrowsException<Error<Result>>(() => new MultipleResults<Result>(new Result(1), new Result(2)).Named());
         Assert.ThrowsException<Error<Result>>(() => new MultipleResults<Result>(new Result(1), new Result(2)).Named("a"));
     }
+
+    [TestMethod]
+    public void TestOrNo()
+    {
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new NoResults<Result>(),
+            new MultipleResults<Result>()
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new NoResults<Result>(),
+            new MultipleResults<Result>(new Result(1))
+        );
+    }
+
+    [TestMethod]
+    public void TestOrSingle()
+    {
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new SingleResults<Result>(new Result(2)),
+            new MultipleResults<Result>(new Result(2))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new SingleResults<Result>(new Result(2)),
+            new MultipleResults<Result>(new Result(1), new Result(2))
+        );
+    }
+
+    [TestMethod]
+    public void TestOrOptional()
+    {
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new OptionalResults<Result>(),
+            new MultipleResults<Result>()
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new OptionalResults<Result>(),
+            new MultipleResults<Result>(new Result(1))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new OptionalResults<Result>(new Result(2)),
+            new MultipleResults<Result>(new Result(2))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new OptionalResults<Result>(new Result(2)),
+            new MultipleResults<Result>(new Result(1), new Result(2))
+        );
+    }
+
+    [TestMethod]
+    public void TestOrMultiple()
+    {
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new MultipleResults<Result>(),
+            new MultipleResults<Result>()
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new MultipleResults<Result>(),
+            new MultipleResults<Result>(new Result(1))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new MultipleResults<Result>(new Result(1)),
+            new MultipleResults<Result>(new Result(1))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new MultipleResults<Result>(new Result(1)),
+            new MultipleResults<Result>(new Result(1), new Result(1))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new MultipleResults<Result>(new Result(2)),
+            new MultipleResults<Result>(new Result(1), new Result(2))
+        );
+    }
+
+    [TestMethod]
+    public void TestOrNamed()
+    {
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new NamedResults<Result>(),
+            new NamedResults<Result>()
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new NamedResults<Result>(),
+            new NamedResults<Result>(("", new Result(1)))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>() | new NamedResults<Result>(("a", new Result(2))),
+            new NamedResults<Result>(("a", new Result(2)))
+        );
+        Assert.AreEqual(
+            new MultipleResults<Result>(new Result(1)) | new NamedResults<Result>(("a", new Result(2))),
+            new NamedResults<Result>(("", new Result(1)), ("a", new Result(2)))
+        );
+    }
 }
