@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 
-namespace Sharpy.Core.Streams
+namespace Sharpy.Core.Containers
 {
     [TestClass]
     public class StreamTest

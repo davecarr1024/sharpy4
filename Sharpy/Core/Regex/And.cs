@@ -1,4 +1,4 @@
-using Sharpy.Core.Streams;
+using Sharpy.Core.Containers;
 
 namespace Sharpy.Core.Regex;
 

@@ -1,5 +1,3 @@
-using Sharpy.Core.Streams;
-
 namespace Sharpy.Core.Regex;
 
 public record Or : NaryRegex
@@ -8,7 +6,7 @@ public record Or : NaryRegex
 
     public override StateAndResult Call(State state)
     {
-        List<Errors.Error> errors = new();
+        System.Collections.Generic.List<Errors.Error> errors = new();
         foreach (Regex child in Children.Items)
         {
             try

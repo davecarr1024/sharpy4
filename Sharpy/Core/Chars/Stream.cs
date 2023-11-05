@@ -1,6 +1,6 @@
 namespace Sharpy.Core.Chars;
 
-public class Stream : Streams.Stream<Stream, Char>
+public class Stream : Containers.Stream<Stream, Char>
 {
     public Stream()
     {

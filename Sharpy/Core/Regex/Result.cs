@@ -1,6 +1,6 @@
 namespace Sharpy.Core.Regex;
 
-public class Result : Streams.Set<Chars.Char>
+public class Result : Containers.List<Chars.Char>
 {
     public Result() { }
 
