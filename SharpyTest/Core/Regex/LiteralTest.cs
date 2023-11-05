@@ -18,5 +18,12 @@ public class TestLiteral
                 new Result("a")
             )
         );
+        Assert.AreEqual(
+            new Literal('a').Call(new State("ab")),
+            new StateAndResult(
+                new State("b", new Chars.Position(0, 1)),
+                new Result("a")
+            )
+        );
     }
 }
