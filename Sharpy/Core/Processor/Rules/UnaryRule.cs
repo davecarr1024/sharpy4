@@ -18,7 +18,7 @@ public abstract record UnaryRule<StateType, ResultsType, ChildResultsType, Resul
         }
         catch (Core.Errors.Error error)
         {
-            throw Error(state, error);
+            throw CreateError(state, error);
         }
     }
 }
