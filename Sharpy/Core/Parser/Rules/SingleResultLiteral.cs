@@ -8,7 +8,7 @@ public record SingleResultsLiteral<StateType, Result>(Lexer.Rule LexerRule, Func
 {
     public override Lexer.Lexer Lexer => new(LexerRule);
 
-    public override States.StateAndResults<StateType, Results.SingleResults<Result>, Result> Call(StateType state, Scope<StateType, Result> scope)
+    public override States.StateAndResults<StateType, Results.SingleResults<Result>, Result> Call(StateType state)
     {
         try
         {

@@ -13,11 +13,11 @@ public abstract record UnaryRule<StateType, ResultsType, ChildResultsType, Resul
 
     public override Lexer.Lexer Lexer => Child.Lexer;
 
-    protected States.StateAndResults<StateType, ChildResultsType, Result> CallChild(StateType state, Scope<StateType, Result> scope)
+    protected States.StateAndResults<StateType, ChildResultsType, Result> CallChild(StateType state)
     {
         try
         {
-            return Child.Call(state, scope);
+            return Child.Call(state);
         }
         catch (Core.Errors.Error error)
         {

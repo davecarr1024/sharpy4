@@ -11,20 +11,17 @@ public class NoResultLiteralTest
         NoResultsLiteral<States.LexerState, Result> rule = new(new Lexer.Rule("r", "a"));
         Assert.ThrowsException<NoResultsLiteral<States.LexerState, Result>.Error>(
             () => rule.Call(
-                new States.LexerState(),
-                new Scope<States.LexerState, Result>()
+                new States.LexerState()
             )
         );
         Assert.ThrowsException<NoResultsLiteral<States.LexerState, Result>.Error>(
             () => rule.Call(
-                new States.LexerState(("s", "b")),
-                new Scope<States.LexerState, Result>()
+                new States.LexerState(("s", "b"))
             )
         );
         Assert.AreEqual(
             rule.Call(
-                new States.LexerState(("r", "a")),
-                new Scope<States.LexerState, Result>()
+                new States.LexerState(("r", "a"))
             ),
             new States.StateAndNoResults<States.LexerState, Result>(
                 new States.LexerState()
@@ -32,8 +29,7 @@ public class NoResultLiteralTest
         );
         Assert.AreEqual(
             rule.Call(
-                new States.LexerState(("r", "a"), ("s", "b")),
-                new Scope<States.LexerState, Result>()
+                new States.LexerState(("r", "a"), ("s", "b"))
             ),
             new States.StateAndNoResults<States.LexerState, Result>(
                 new States.LexerState(("s", "b"))

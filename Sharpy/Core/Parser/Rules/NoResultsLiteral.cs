@@ -10,7 +10,7 @@ public record NoResultsLiteral<StateType, Result>(Lexer.Rule LexerRule, Action<T
 
     public override Lexer.Lexer Lexer => new(LexerRule);
 
-    public override States.StateAndResults<StateType, Results.NoResults<Result>, Result> Call(StateType state, Scope<StateType, Result> scope)
+    public override States.StateAndResults<StateType, Results.NoResults<Result>, Result> Call(StateType state)
     {
         try
         {

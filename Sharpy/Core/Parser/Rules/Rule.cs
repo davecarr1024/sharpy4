@@ -22,7 +22,7 @@ public abstract record Rule<StateType, ResultsType, Result>
         public StateType State { get; init; }
     }
 
-    public abstract States.StateAndResults<StateType, ResultsType, Result> Call(StateType state, Scope<StateType, Result> scope);
+    public abstract States.StateAndResults<StateType, ResultsType, Result> Call(StateType state);
 
     public abstract Lexer.Lexer Lexer { get; }
 

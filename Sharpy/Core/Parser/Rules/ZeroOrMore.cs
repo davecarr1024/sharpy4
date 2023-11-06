@@ -7,14 +7,14 @@ public record ZeroOrMore<StateType, ChildResultsType, Result>
 {
     public ZeroOrMore(Rule<StateType, ChildResultsType, Result> child) : base(child) { }
 
-    public override States.StateAndResults<StateType, Results.MultipleResults<Result>, Result> Call(StateType state, Scope<StateType, Result> scope)
+    public override States.StateAndResults<StateType, Results.MultipleResults<Result>, Result> Call(StateType state)
     {
         Results.MultipleResults<Result> results = new();
         while (true)
         {
             try
             {
-                States.StateAndMultipleResults<StateType, Result> childStateAndResults = CallChild(state, scope).Multiple();
+                States.StateAndMultipleResults<StateType, Result> childStateAndResults = CallChild(state).Multiple();
                 state = childStateAndResults.State;
                 results |= childStateAndResults.Results;
             }
