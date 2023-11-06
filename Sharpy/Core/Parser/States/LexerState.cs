@@ -1,4 +1,4 @@
-namespace Sharpy.Core.Processor.States;
+namespace Sharpy.Core.Parser.States;
 
 public record AbstractLexerState<Self>
     where Self : AbstractLexerState<Self>, new()
