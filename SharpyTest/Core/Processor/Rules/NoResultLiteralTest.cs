@@ -1,5 +1,3 @@
-using System.Data;
-
 namespace Sharpy.Core.Processor.Rules;
 
 [TestClass]
@@ -21,6 +19,15 @@ public class NoResultLiteralTest
             () => rule.Call(
                 new States.LexerState(("s", "b")),
                 new Scope<States.LexerState, Result>()
+            )
+        );
+        Assert.AreEqual(
+            rule.Call(
+                new States.LexerState(("r", "a")),
+                new Scope<States.LexerState, Result>()
+            ),
+            new States.StateAndNoResults<States.LexerState, Result>(
+                new States.LexerState()
             )
         );
         Assert.AreEqual(
