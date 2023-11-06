@@ -8,7 +8,7 @@ public record Any : Regex
     {
         try
         {
-            return new StateAndResult(state.Tail(), new Result(state.Head()));
+            return new StateAndResult(state.Tail, new Result(state.Head));
         }
         catch (Errors.Error error)
         {

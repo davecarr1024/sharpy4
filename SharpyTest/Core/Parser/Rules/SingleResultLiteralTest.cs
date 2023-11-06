@@ -1,7 +1,7 @@
 namespace Sharpy.Core.Parser.Rules;
 
 [TestClass]
-public class SingleIntLiteralTest
+public class SingleResultLiteralTest
 {
     [TestMethod]
     public void TestCall()

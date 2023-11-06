@@ -6,9 +6,9 @@ public record Literal(char Value) : Regex
     {
         try
         {
-            if (state.Head().Value == Value)
+            if (state.Head.Value == Value)
             {
-                return new(state.Tail(), new Result(state.Head()));
+                return new(state.Tail, new Result(state.Head));
             }
         }
         catch (Errors.Error error)

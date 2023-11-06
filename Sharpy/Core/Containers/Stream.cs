@@ -3,21 +3,27 @@ public abstract class Stream<S, T> : List<T> where S : Stream<S, T>, new()
 {
     public Stream(params T[] items) : base(items) { }
 
-    public T Head()
+    public T Head
     {
-        if (!Items.Any())
+        get
         {
-            throw new Errors.Error("empty stream");
+            if (!Items.Any())
+            {
+                throw new Errors.Error("empty stream");
+            }
+            return Items[0];
         }
-        return Items[0];
     }
 
-    public S Tail()
+    public S Tail
     {
-        if (!Items.Any())
+        get
         {
-            throw new Errors.Error("empty stream");
+            if (!Items.Any())
+            {
+                throw new Errors.Error("empty stream");
+            }
+            return new S() { Items = Items.Skip(1).ToImmutableList() };
         }
-        return new S() { Items = Items.Skip(1).ToImmutableList() };
     }
 }

@@ -1,15 +1,14 @@
+
 namespace Sharpy.Core.Parser.States;
 
-public record AbstractLexerState<Self>
-    where Self : AbstractLexerState<Self>, new()
+
+public record LexerState(Tokens.Stream Tokens) : ILexerState<LexerState>
 {
-    public AbstractLexerState(Tokens.Stream tokens) => Tokens = tokens;
+    public LexerState() : this(new Tokens.Stream()) { }
 
-    public AbstractLexerState() : this(new Tokens.Stream()) { }
+    public LexerState(params (string name, string value)[] tokens) : this(new Tokens.Stream(tokens)) { }
 
-    public Tokens.Stream Tokens { get; init; }
+    public LexerState(params Tokens.Token[] tokens) : this(new Tokens.Stream(tokens)) { }
 
-    public Self Tail() => new() { Tokens = Tokens.Tail() };
-
-    public Tokens.Token Head() => Tokens.Head();
+    LexerState ILexerState<LexerState>.CreateTail(Tokens.Stream tokens) => new(tokens);
 }

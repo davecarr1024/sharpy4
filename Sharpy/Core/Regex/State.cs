@@ -10,7 +10,7 @@ public record State
 
     public Chars.Stream Chars { get; init; } = new();
 
-    public Chars.Char Head() => Chars.Head();
+    public Chars.Char Head => Chars.Head;
 
-    public State Tail() => new(Chars.Tail());
+    public State Tail => new(Chars.Tail);
 }

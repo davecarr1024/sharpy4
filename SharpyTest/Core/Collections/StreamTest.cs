@@ -15,13 +15,13 @@ namespace Sharpy.Core.Containers
         [TestMethod]
         public void TestHead()
         {
-            Assert.ThrowsException<Errors.Error>(() => new TestStream().Head());
+            Assert.ThrowsException<Errors.Error>(() => new TestStream().Head);
             Assert.AreEqual(
-                new TestStream(1).Head(),
+                new TestStream(1).Head,
                 1
             );
             Assert.AreEqual(
-                new TestStream(1, 2).Head(),
+                new TestStream(1, 2).Head,
                 1
             );
         }
@@ -29,13 +29,13 @@ namespace Sharpy.Core.Containers
         [TestMethod]
         public void TestTail()
         {
-            Assert.ThrowsException<Errors.Error>(() => new TestStream().Tail());
+            Assert.ThrowsException<Errors.Error>(() => new TestStream().Tail);
             Assert.AreEqual(
-                new TestStream(1).Tail(),
+                new TestStream(1).Tail,
                 new TestStream()
             );
             Assert.AreEqual(
-                new TestStream(1, 2).Tail(),
+                new TestStream(1, 2).Tail,
                 new TestStream(2)
             );
         }
