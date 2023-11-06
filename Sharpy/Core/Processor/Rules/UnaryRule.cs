@@ -1,3 +1,4 @@
+
 namespace Sharpy.Core.Processor.Rules;
 
 public abstract record UnaryRule<StateType, ResultsType, ChildResultsType, Result>
@@ -9,6 +10,8 @@ public abstract record UnaryRule<StateType, ResultsType, ChildResultsType, Resul
     protected UnaryRule(Rule<StateType, ChildResultsType, Result> child) => Child = child;
 
     public Rule<StateType, ChildResultsType, Result> Child { get; init; }
+
+    public override Lexer.Lexer Lexer => Child.Lexer;
 
     protected States.StateAndResults<StateType, ChildResultsType, Result> CallChild(StateType state, Scope<StateType, Result> scope)
     {

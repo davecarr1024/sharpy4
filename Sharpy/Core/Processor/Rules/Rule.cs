@@ -24,7 +24,11 @@ public abstract record Rule<StateType, ResultsType, Result>
 
     public abstract States.StateAndResults<StateType, ResultsType, Result> Call(StateType state, Scope<StateType, Result> scope);
 
+    public abstract Lexer.Lexer Lexer { get; }
+
     protected Error CreateError(StateType state, string message) => new(this, state, message);
 
     protected Error CreateError(StateType state, params Core.Errors.Error[] children) => new(this, state, children);
+
+    public ZeroOrMore<StateType, ResultsType, Result> ZeroOrMore() => new ZeroOrMore<StateType, ResultsType, Result>(this);
 }

@@ -1,3 +1,4 @@
+
 namespace Sharpy.Core.Processor.Rules;
 
 public record SingleResultsLiteral<StateType, Result>(Lexer.Rule LexerRule, Func<Tokens.Token, Result> Func)
@@ -5,6 +6,8 @@ public record SingleResultsLiteral<StateType, Result>(Lexer.Rule LexerRule, Func
     where StateType : States.AbstractLexerState<StateType>, new()
     where Result : notnull
 {
+    public override Lexer.Lexer Lexer => new(LexerRule);
+
     public override States.StateAndResults<StateType, Results.SingleResults<Result>, Result> Call(StateType state, Scope<StateType, Result> scope)
     {
         try

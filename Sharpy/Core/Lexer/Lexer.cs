@@ -24,11 +24,13 @@ public record Lexer(Containers.List<Rule> Rules)
 
     private Error CreateError(State state, params Errors.Error[] children) => new(this, state, children);
 
+    public Lexer(params Rule[] rules) : this(new Containers.List<Rule>(rules)) { }
+
     public Lexer(params (string name, Regex.Regex regex)[] rules)
-        : this(new Containers.List<Rule>(rules.Select(rule => new Rule(rule.name, rule.regex)).ToArray())) { }
+        : this(rules.Select(rule => new Rule(rule.name, rule.regex)).ToArray()) { }
 
     public Lexer(params (string name, string regex)[] rules)
-        : this(new Containers.List<Rule>(rules.Select(rule => new Rule(rule.name, rule.regex)).ToArray())) { }
+        : this(rules.Select(rule => new Rule(rule.name, rule.regex)).ToArray()) { }
 
     private StateAndResult CallAny(State state)
     {
